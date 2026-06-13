@@ -52,12 +52,67 @@
         <section class="container featured-section">
             <div class="section-title"><h2>Öne Çıkanlar</h2><p>Bu haftanın en çok tercih edilen GNL ürünleri.</p></div>
             <div class="carousel-wrapper">
-                <div class="product-carousel" id="featuredGrid">
-                    <p style="text-align:center; color:#666; width:100%; margin-top:2rem;">Ürünler yakında eklenecektir...</p>
-                </div>
+                <div class="product-carousel" id="featuredGrid"></div>
             </div>
+            <div class="carousel-controls"><div class="carousel-dots" id="carouselDots"></div></div>
         </section>
     </div>
+
+    <main class="container" id="shopView" style="display: none; padding-top: 3rem; padding-bottom: 5rem;">
+        <div class="shop-toolbar">
+            <div class="toolbar-left">
+                <div class="custom-dropdown-wrapper">
+                    <button class="toolbar-btn" id="filterToggleBtn">Filtreler <span class="toggle-icon">▼</span></button>
+                    <div class="custom-dropdown-content" id="filterContent">
+                        <div class="filter-group">
+                            <h4>Maks. Fiyat: <span id="priceValue">5000</span> ₺</h4>
+                            <input type="range" id="priceSlider" class="price-slider" min="0" max="5000" value="5000" step="50">
+                        </div>
+                        <button class="btn btn-full" id="applyFiltersBtn">UYGULA</button>
+                    </div>
+                </div>
+                <div class="custom-dropdown-wrapper">
+                    <button class="toolbar-btn" id="sortToggleBtn"><span id="currentSortText">Öne Çıkanlar</span> <span class="toggle-icon">▼</span></button>
+                    <div class="custom-dropdown-content" id="sortContent" style="padding: 0.5rem 0; width: 220px;">
+                        <button class="sort-option active" data-sort="featured">Öne Çıkanlar</button>
+                        <button class="sort-option" data-sort="priceLow">En Düşük Fiyat</button>
+                        <button class="sort-option" data-sort="priceHigh">En Yüksek Fiyat</button>
+                    </div>
+                </div>
+            </div>
+            <div class="toolbar-right">
+                <span id="productCount" style="font-weight: 500; margin-right: 0.5rem;">0</span> ürün
+                <h2 id="categoryTitle" style="display: inline-block; margin-left: 2rem; font-family: var(--font-heading);">Kategori Adı</h2>
+            </div>
+        </div>
+        <section class="product-area"><div class="product-grid" id="productGrid"></div></section>
+    </main>
+
+    <main class="container" id="productDetailView" style="display: none; padding-top: 3rem; padding-bottom: 5rem;">
+        <div style="margin-bottom: 2rem; color: var(--text-secondary); font-size: 0.9rem;">
+            <a href="#" id="backToCollection" style="font-weight: 500;">Koleksiyon</a> / <span id="detailCategoryBreadcrumb">Kategori</span>
+        </div>
+        <div class="product-detail-layout">
+            <div class="product-detail-image">
+                <div class="main-media-container"><img id="detailImg" src="" alt="Ürün Resmi"></div>
+            </div>
+            <div class="product-detail-info">
+                <h1 id="detailTitle" style="font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 0.5rem;">Ürün Adı</h1>
+                <p id="detailCategoryText" style="color: var(--text-secondary); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 0.5rem;">Kategori</p>
+                <p class="price" id="detailPrice" style="font-size: 1.8rem; font-weight: 600; margin-bottom: 2rem;">0.00 ₺</p>
+                <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 2.5rem;">Modern tasarımı ve üstün kalitesiyle evinize şıklık katacak harika bir ürün. Uzun ömürlü kullanım için yüksek standartlarda üretilmiştir.</p>
+                
+                <div class="form-row" style="margin-bottom: 1rem;">
+                    <button class="btn btn-full" id="buyNowBtn" style="flex: 1; font-weight: 600;">HEMEN AL</button>
+                    <button class="btn btn-full" id="addToCartDetailBtn" style="flex: 1; background: #fff; color: var(--text-primary); border: 2px solid var(--text-primary); font-weight: 600;">SEPETE EKLE</button>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 6rem; border-top: 1px solid var(--border-color); padding-top: 4rem;">
+            <h2 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: 2rem; text-align: center;">Bunlar da Hoşunuza Gidebilir</h2>
+            <div class="product-grid" id="similarProductsGrid"></div>
+        </div>
+    </main>
 
     <footer class="footer">
         <div class="container footer-content">
@@ -67,16 +122,16 @@
             </div>
             <div class="footer-col">
                 <h4>Alışveriş</h4>
-                <a href="#" class="footer-category-link">Mutfak</a>
-                <a href="#" class="footer-category-link">Ev Yaşam</a>
-                <a href="#" class="footer-category-link">Temizlik</a>
-                <a href="#" class="footer-category-link">Kişisel Bakım</a>
+                <a href="#" class="footer-category-link" data-category="Mutfak">Mutfak</a>
+                <a href="#" class="footer-category-link" data-category="Ev Yaşam">Ev Yaşam</a>
+                <a href="#" class="footer-category-link" data-category="Temizlik">Temizlik</a>
+                <a href="#" class="footer-category-link" data-category="Kişisel Bakım">Kişisel Bakım</a>
             </div>
             <div class="footer-col">
                 <h4>Destek</h4>
-                <a href="#" id="footerContactBtn">İletişim</a>
-                <a href="#" id="footerShippingBtn">Kargo ve Teslimat</a>
-                <a href="#" id="footerReturnsBtn">İade Koşulları</a>
+                <a href="#">İletişim</a>
+                <a href="#">Kargo ve Teslimat</a>
+                <a href="#">İade Koşulları</a>
             </div>
             <div class="footer-col">
                 <h4>Bültene Kayıt Ol</h4>
