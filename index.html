@@ -41,6 +41,91 @@
         </div>
     </header>
 
+    <div class="overlay" id="mainOverlay"></div>
+
+    <div class="modal" id="authModal">
+        <button class="close-modal" id="closeAuth">&times;</button>
+        <div class="auth-tabs">
+            <button class="auth-tab active" id="tabLogin">Giriş Yap</button>
+            <button class="auth-tab" id="tabRegister">Üye Ol</button>
+        </div>
+        <form class="auth-form active" id="formLogin">
+            <label class="form-label">E-posta Adresi</label>
+            <input type="email" id="loginEmail" class="form-input form-input-mb" placeholder="E-posta Adresiniz" required>
+            
+            <label class="form-label">Şifre</label>
+            <input type="password" id="loginPassword" class="form-input form-input-mb" placeholder="Şifreniz" required>
+            
+            <button type="submit" class="btn btn-full">GİRİŞ YAP</button>
+        </form>
+        <form class="auth-form" id="formRegister">
+            <label class="form-label">Adınız Soyadınız</label>
+            <input type="text" id="registerName" class="form-input form-input-mb" placeholder="Adınız Soyadınız" required>
+            
+            <label class="form-label">E-posta Adresi</label>
+            <input type="email" id="registerEmail" class="form-input form-input-mb" placeholder="E-posta Adresiniz" required>
+            
+            <label class="form-label">Şifre Belirleyin</label>
+            <input type="password" id="registerPassword" class="form-input form-input-mb" placeholder="Şifre Belirleyin" required>
+            
+            <button type="submit" class="btn btn-full">HESAP OLUŞTUR</button>
+        </form>
+    </div>
+
+    <div class="modal profile-modal" id="profileModal">
+        <button class="close-modal" id="closeProfile">&times;</button>
+        <h2 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: 1.5rem;">Hesabım</h2>
+        <div class="profile-tabs">
+            <button class="profile-tab active" data-target="infoContent">Kişisel Bilgiler</button>
+            <button class="profile-tab" data-target="addressContent">Adreslerim</button>
+            <button class="profile-tab" data-target="ordersContent" style="opacity: 0.5;">Siparişlerim</button>
+            <button class="profile-tab" data-target="messagesContent" style="opacity: 0.5;">Mesajlarım</button>
+        </div>
+        
+        <div class="profile-content active" id="infoContent">
+            <form>
+                <label class="form-label">Ad Soyad</label>
+                <input type="text" id="profileNameInput" class="form-input form-input-mb" value="">
+                
+                <label class="form-label">E-posta Adresi</label>
+                <input type="email" id="profileEmailInput" class="form-input form-input-mb" value="" disabled>
+                
+                <label class="form-label">Telefon Numarası</label>
+                <input type="tel" id="profilePhoneInput" class="form-input form-input-mb" placeholder="05XX XXX XX XX" maxlength="11">
+                
+                <button type="button" id="saveInfoBtn" class="btn btn-full">BİLGİLERİ KAYDET</button>
+            </form>
+        </div>
+        
+        <div class="profile-content" id="addressContent">
+            <form>
+                <div class="form-row">
+                    <div class="flex-1">
+                        <label class="form-label">İl</label>
+                        <input type="text" id="profileCityInput" class="form-input form-input-mb" placeholder="Örn: İstanbul">
+                    </div>
+                    <div class="flex-1">
+                        <label class="form-label">İlçe</label>
+                        <input type="text" id="profileDistrictInput" class="form-input form-input-mb" placeholder="Örn: Kadıköy">
+                    </div>
+                </div>
+                <label class="form-label">Açık Adres</label>
+                <textarea id="profileAddressInput" rows="3" class="form-textarea" placeholder="Mahalle, Sokak, Bina No, Kapı No..."></textarea>
+                
+                <button type="button" id="saveAddressBtn" class="btn btn-full">ADRESİ KAYDET</button>
+            </form>
+        </div>
+        
+        <div class="profile-content" id="ordersContent">
+            <p style="text-align:center; color:#666; margin-top:1rem;">Bu özellik yakında aktif olacaktır.</p>
+        </div>
+        <div class="profile-content" id="messagesContent">
+            <p style="text-align:center; color:#666; margin-top:1rem;">Bu özellik yakında aktif olacaktır.</p>
+        </div>
+        
+        <button class="btn btn-full btn-danger" id="logoutBtn" style="margin-top: 1rem;">ÇIKIŞ YAP</button>
+    </div>
+
     <div id="homeView">
         <section class="hero">
             <div class="hero-content">
