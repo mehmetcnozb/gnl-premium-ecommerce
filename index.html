@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GNL | Premium Zücaciye ve Ev Dekorasyonu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <a href="#" class="logo" id="homeLink" title="Ana Sayfaya Dön">
+            <img src="C:\Users\Mehmetcan\OneDrive\Desktop\admin\WhatsApp Image 2026-06-03 at 12.19.46.jpeg" alt="GNL Logo" class="logo-img">
+        </a>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Ürün, kategori veya marka ara...">
+        </div>
+        <nav class="main-nav">
+            <a href="#" class="nav-item" data-category="Mutfak">Mutfak</a>
+            <a href="#" class="nav-item" data-category="Ev Yaşam">Ev Yaşam</a>
+            <a href="#" class="nav-item" data-category="Temizlik">Temizlik</a>
+            <a href="#" class="nav-item" data-category="Kişisel Bakım">Kişisel Bakım</a>
+            <a href="#" class="nav-item accent" id="navCollectionBtn">Koleksiyon</a>
+        </nav>
+        <div class="header-icons">
+            <a href="#" class="icon-link" id="authToggle" title="Hesabım">
+                <svg id="userIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+            <a href="#" class="icon-link" id="cartToggle" title="Sepetim">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span id="cartBadge" class="cart-badge">0</span>
+            </a>
+        </div>
+    </header>
+
+    <div id="homeView">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Evinizin Özünü Keşfedin</h1>
+                <p>Modern yaşama ilham veren, özenle seçilmiş mutfak eşyaları ve ev dekorasyonu koleksiyonumuzla tanışın.</p>
+                <button class="btn" id="exploreBtn">Koleksiyonu İncele</button>
+            </div>
+        </section>
+        <section class="container featured-section">
+            <div class="section-title"><h2>Öne Çıkanlar</h2><p>Bu haftanın en çok tercih edilen GNL ürünleri.</p></div>
+            <div class="carousel-wrapper">
+                <div class="product-carousel" id="featuredGrid">
+                    <p style="text-align:center; color:#666; width:100%; margin-top:2rem;">Ürünler yakında eklenecektir...</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-col">
+                <img src="C:\Users\Mehmetcan\OneDrive\Desktop\admin\WhatsApp Image 2026-06-03 at 12.19.46.jpeg" alt="GNL Logo" class="footer-logo">
+                <p class="footer-text">Premium yaşam gereçleri, ev dekorasyonu ve modern yaşam ürünleri.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Alışveriş</h4>
+                <a href="#" class="footer-category-link">Mutfak</a>
+                <a href="#" class="footer-category-link">Ev Yaşam</a>
+                <a href="#" class="footer-category-link">Temizlik</a>
+                <a href="#" class="footer-category-link">Kişisel Bakım</a>
+            </div>
+            <div class="footer-col">
+                <h4>Destek</h4>
+                <a href="#" id="footerContactBtn">İletişim</a>
+                <a href="#" id="footerShippingBtn">Kargo ve Teslimat</a>
+                <a href="#" id="footerReturnsBtn">İade Koşulları</a>
+            </div>
+            <div class="footer-col">
+                <h4>Bültene Kayıt Ol</h4>
+                <div class="newsletter">
+                    <input type="email" placeholder="E-posta adresiniz">
+                    <button>KAYIT OL</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 GNL. Tüm hakları saklıdır.</p></div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
