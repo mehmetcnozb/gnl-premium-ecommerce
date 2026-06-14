@@ -45,10 +45,12 @@
                             <option value="Kişisel Bakım">Kişisel Bakım</option>
                         </select>
                     </div>
+                    
                     <div class="form-group mb-0">
-                        <label class="form-label">Görsel Linki</label>
-                        <input type="text" id="pImg" required class="form-input" placeholder="https://... veya resim.jpg">
+                        <label class="form-label">Medya Linkleri (Birden fazla resim/video varsa virgülle ayırarak girin)</label>
+                        <input type="text" id="pImg" required class="form-input" placeholder="resim1.jpg, resim2.png, video.mp4">
                     </div>
+                    
                     <div style="margin-top: 1rem; display: flex; align-items: center; gap: 8px;">
                         <input type="checkbox" id="pFeatured">
                         <label for="pFeatured" class="form-label mb-0" style="cursor:pointer;">Ana sayfada "Öne Çıkanlar"da göster</label>
@@ -61,7 +63,7 @@
             <table class="admin-table">
                 <thead>
                     <tr>
-                        <th style="width: 80px;">Görsel</th>
+                        <th style="width: 80px;">Kapak Görseli</th>
                         <th>Ürün Adı</th>
                         <th>Kategori</th>
                         <th>Fiyat</th>
