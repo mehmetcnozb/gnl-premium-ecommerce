@@ -1,14 +1,13 @@
-// GNL E-Commerce Platform - v1.4
-// Commit 5: Admin Dashboard for Product Management
+// GNL E-Commerce Platform - v1.5
+// Commit 6: Inventory Management & Scarcity Badges
 
-// --- 1. GLOBAL VERİTABANI YÖNETİMİ ---
 const defaultProducts = [
-    { id: 1, category: "Mutfak", title: "Minimal Seramik Kase Seti", price: 899.90, isFeatured: true, img: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=800&auto=format&fit=crop" },
-    { id: 2, category: "Ev Yaşam", title: "Kristal Şarap Kadehleri", price: 1299.00, isFeatured: false, img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=800&auto=format&fit=crop" },
-    { id: 3, category: "Ev Yaşam", title: "Beyaz Porselen Koleksiyonu", price: 1499.00, isFeatured: true, img: "https://images.unsplash.com/photo-1614850715649-1d0106293cb1?q=80&w=800&auto=format&fit=crop" },
-    { id: 4, category: "Mutfak", title: "Artisan Karıştırma Kabı", price: 649.90, isFeatured: false, img: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?q=80&w=800&auto=format&fit=crop" },
-    { id: 6, category: "Temizlik", title: "Organik Yüzey Temizleyici", price: 349.90, isFeatured: true, img: "https://images.unsplash.com/photo-1585421514738-01798e348b17?q=80&w=800&auto=format&fit=crop" },
-    { id: 7, category: "Kişisel Bakım", title: "Doğal Banyo Sabunu", price: 249.90, isFeatured: false, img: "https://images.unsplash.com/photo-1600857062241-98e5dba7f214?q=80&w=800&auto=format&fit=crop" }
+    { id: 1, category: "Mutfak", title: "Minimal Seramik Kase Seti", price: 899.90, isFeatured: true, stock: 15, sales: 150, img: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=800&auto=format&fit=crop" },
+    { id: 2, category: "Ev Yaşam", title: "Kristal Şarap Kadehleri", price: 1299.00, isFeatured: false, stock: 5, sales: 320, img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=800&auto=format&fit=crop" },
+    { id: 3, category: "Ev Yaşam", title: "Beyaz Porselen Koleksiyonu", price: 1499.00, isFeatured: true, stock: 0, sales: 85, img: "https://images.unsplash.com/photo-1614850715649-1d0106293cb1?q=80&w=800&auto=format&fit=crop" },
+    { id: 4, category: "Mutfak", title: "Artisan Karıştırma Kabı", price: 649.90, isFeatured: false, stock: 8, sales: 210, img: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?q=80&w=800&auto=format&fit=crop" },
+    { id: 6, category: "Temizlik", title: "Organik Yüzey Temizleyici", price: 349.90, isFeatured: true, stock: 12, sales: 50, img: "https://images.unsplash.com/photo-1585421514738-01798e348b17?q=80&w=800&auto=format&fit=crop" },
+    { id: 7, category: "Kişisel Bakım", title: "Doğal Banyo Sabunu", price: 249.90, isFeatured: false, stock: 20, sales: 110, img: "https://images.unsplash.com/photo-1600857062241-98e5dba7f214?q=80&w=800&auto=format&fit=crop" }
 ];
 
 let products = JSON.parse(localStorage.getItem('gnl_products'));
@@ -18,17 +17,14 @@ let users = JSON.parse(localStorage.getItem('gnl_users')) || [];
 let currentUser = JSON.parse(localStorage.getItem('gnl_currentUser')) || null;
 
 // =========================================================================
-// YENİ EKLENEN: YÖNETİM PANELİ (ADMIN) İŞLEVLERİ (COMMIT 5)
+// YÖNETİM PANELİ (ADMIN)
 // =========================================================================
-
-// Eğer şu an admin sayfasındaysak bu blok çalışır
 if (document.querySelector('.admin-container')) {
     const tabProductsBtn = document.getElementById('tabProductsBtn');
     const tabOrdersBtn = document.getElementById('tabOrdersBtn');
     const productsSection = document.getElementById('productsSection');
     const ordersSection = document.getElementById('ordersSection');
 
-    // Admin Sekme Değiştirme
     function switchTab(activeBtn, activeSec) {
         [tabProductsBtn, tabOrdersBtn].forEach(b => b.classList.remove('active'));
         [productsSection, ordersSection].forEach(s => s.classList.remove('active'));
@@ -38,7 +34,6 @@ if (document.querySelector('.admin-container')) {
     tabProductsBtn.addEventListener('click', () => { switchTab(tabProductsBtn, productsSection); renderAdminProducts(); });
     tabOrdersBtn.addEventListener('click', () => { switchTab(tabOrdersBtn, ordersSection); renderAdminOrders(); });
 
-    // Admin Ürünleri Listele
     function renderAdminProducts() {
         let adminProducts = JSON.parse(localStorage.getItem('gnl_products')) || [];
         const tbody = document.getElementById('adminProductTable');
@@ -58,11 +53,9 @@ if (document.querySelector('.admin-container')) {
         });
     }
 
-    // Yeni Ürün Ekleme (Form Submit)
     document.getElementById('addProductForm').addEventListener('submit', (e) => {
         e.preventDefault();
         let adminProducts = JSON.parse(localStorage.getItem('gnl_products')) || [];
-        
         const newProduct = {
             id: Date.now(), 
             title: document.getElementById('pTitle').value, 
@@ -73,17 +66,13 @@ if (document.querySelector('.admin-container')) {
             isFeatured: document.getElementById('pFeatured').checked, 
             sales: 0
         };
-        
         adminProducts.push(newProduct); 
         localStorage.setItem('gnl_products', JSON.stringify(adminProducts));
-        e.target.reset(); 
-        renderAdminProducts(); 
-        alert("Ürün başarıyla sisteme kaydedildi!");
+        e.target.reset(); renderAdminProducts(); alert("Ürün kaydedildi!");
     });
 
-    // Ürün Silme İşlemi
     window.deleteProduct = (id) => {
-        if (confirm("Bu ürünü silmek istediğinize emin misiniz?")) { 
+        if (confirm("Emin misiniz?")) { 
             let adminProducts = JSON.parse(localStorage.getItem('gnl_products')) || [];
             adminProducts = adminProducts.filter(p => p.id !== id); 
             localStorage.setItem('gnl_products', JSON.stringify(adminProducts)); 
@@ -91,13 +80,11 @@ if (document.querySelector('.admin-container')) {
         }
     };
 
-    // Admin Siparişleri Listeleme (Commit 4'te oluşan siparişleri okur)
     function renderAdminOrders() {
         const orders = JSON.parse(localStorage.getItem('gnl_orders')) || [];
         const tbody = document.getElementById('adminOrderTable');
         document.getElementById('totalOrderCount').innerText = orders.length;
         tbody.innerHTML = orders.length === 0 ? '<tr><td colspan="6" style="text-align:center; padding: 2rem; color: #64748b;">Sipariş yok.</td></tr>' : '';
-        
         orders.slice().reverse().forEach(o => {
             const items = o.items.map(i => `<div style="margin-bottom:4px;">• ${i.title}</div>`).join('');
             tbody.insertAdjacentHTML('beforeend', `
@@ -111,15 +98,12 @@ if (document.querySelector('.admin-container')) {
                 </tr>`);
         });
     }
-
-    // Admin sayfası açılışında verileri yükle
     renderAdminProducts();
 }
 
 // =========================================================================
-// MÜŞTERİ ARAYÜZÜ (FRONTEND) İŞLEVLERİ (Önceki Commitler)
+// MÜŞTERİ ARAYÜZÜ (FRONTEND)
 // =========================================================================
-
 if (document.getElementById('homeView')) {
     let cart = [];
     let cartTotalValue = 0;
@@ -135,25 +119,53 @@ if (document.getElementById('homeView')) {
     function showShop(cat = "Tümü") { homeView.style.display = 'none'; detailView.style.display = 'none'; shopView.style.display = 'block'; currentCategory = cat; document.getElementById('categoryTitle').innerText = cat; applyFiltersAndSort(); }
 
     window.showProductDetail = (id) => {
-        products = JSON.parse(localStorage.getItem('gnl_products')) || products; // Admindeki güncellemeleri çekmek için
+        products = JSON.parse(localStorage.getItem('gnl_products')) || products; 
         currentlyViewingProduct = products.find(p => p.id === id); if (!currentlyViewingProduct) return;
+        
         homeView.style.display = 'none'; shopView.style.display = 'none'; detailView.style.display = 'block'; window.scrollTo(0, 0);
         document.getElementById('detailCategoryBreadcrumb').innerText = currentlyViewingProduct.category;
         document.getElementById('detailImg').src = currentlyViewingProduct.img;
         document.getElementById('detailTitle').innerText = currentlyViewingProduct.title;
         document.getElementById('detailCategoryText').innerText = currentlyViewingProduct.category;
         document.getElementById('detailPrice').innerText = currentlyViewingProduct.price.toLocaleString('tr-TR', { minimumFractionDigits: 2 }) + " ₺";
+        
+        // YENİ EKLENEN: Stok Durumu ve Buton Kilitleri
+        const stat = document.getElementById('detailStockStatus');
+        const buyBtn = document.getElementById('buyNowBtn');
+        const cartBtn = document.getElementById('addToCartDetailBtn');
+        
+        if (currentlyViewingProduct.stock >= 10) { 
+            stat.innerText = 'Stokta'; 
+            stat.style.color = '#10b981'; // Yeşil
+            buyBtn.disabled = cartBtn.disabled = false; 
+        } else if (currentlyViewingProduct.stock > 0) { 
+            stat.innerText = `Stokta (Son ${currentlyViewingProduct.stock} ürün)`; 
+            stat.style.color = '#f59e0b'; // Turuncu
+            buyBtn.disabled = cartBtn.disabled = false; 
+        } else { 
+            stat.innerText = 'Tükendi'; 
+            stat.style.color = '#ef4444'; // Kırmızı
+            buyBtn.disabled = cartBtn.disabled = true; 
+        }
+
         let similar = products.filter(p => p.category === currentlyViewingProduct.category && p.id !== currentlyViewingProduct.id);
         document.getElementById('similarProductsGrid').innerHTML = similar.slice(0, 3).map(createProductCard).join('');
     };
 
+    // YENİ EKLENEN: Rozet (Badge) Mantığı
     function createProductCard(p) {
+        const out = p.stock <= 0, low = p.stock > 0 && p.stock < 10;
+        let badge = out ? '<div class="out-of-stock-badge">TÜKENDİ</div>' : (low ? `<div class="low-stock-badge">SON ${p.stock} ÜRÜN</div>` : '');
+        
         return `<div class="product-card" onclick="showProductDetail(${p.id})">
-                    <div class="img-container"><img src="${p.img}" class="product-image" onerror="this.src='https://via.placeholder.com/320'"></div>
+                    <div class="img-container">
+                        ${badge}
+                        <img src="${p.img}" class="product-image" onerror="this.src='https://via.placeholder.com/320'">
+                    </div>
                     <div class="product-category">${p.category}</div><h3 class="product-title">${p.title}</h3>
                     <div class="product-footer">
                         <div class="price">${p.price.toLocaleString('tr-TR', { minimumFractionDigits: 2 })} ₺</div>
-                        <button class="add-btn" onclick="event.stopPropagation(); addToCart(${p.id})"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+                        <button class="add-btn" onclick="event.stopPropagation(); addToCart(${p.id})" ${out ? 'disabled' : ''}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
                     </div>
                 </div>`;
     }
@@ -211,9 +223,9 @@ if (document.getElementById('homeView')) {
     document.getElementById('profilePhoneInput').addEventListener('input', phoneMask); document.getElementById('checkoutPhone').addEventListener('input', phoneMask);
 
     const cartItemsContainer = document.getElementById('cartItemsContainer'); const cartTotalPrice = document.getElementById('cartTotalPrice');
-    window.addToCart = (id) => { products = JSON.parse(localStorage.getItem('gnl_products')) || products; const p = products.find(x => x.id === id); cart.push(p); updateCartUI(); closeAllModals(); document.getElementById('sideCart').classList.add('active'); mainOverlay.classList.add('active'); };
+    window.addToCart = (id) => { products = JSON.parse(localStorage.getItem('gnl_products')) || products; const p = products.find(x => x.id === id); if (p.stock <= 0) return alert("Bu ürün tükendi."); cart.push(p); updateCartUI(); closeAllModals(); document.getElementById('sideCart').classList.add('active'); mainOverlay.classList.add('active'); };
     document.getElementById('addToCartDetailBtn').addEventListener('click', () => { if (currentlyViewingProduct) addToCart(currentlyViewingProduct.id); });
-    document.getElementById('buyNowBtn').addEventListener('click', () => { if (currentlyViewingProduct) { if (!cart.find(p => p.id === currentlyViewingProduct.id)) { cart.push(currentlyViewingProduct); updateCartUI(); } openCheckout(); } });
+    document.getElementById('buyNowBtn').addEventListener('click', () => { if (currentlyViewingProduct) { if (currentlyViewingProduct.stock <= 0) return alert("Bu ürün tükendi."); if (!cart.find(p => p.id === currentlyViewingProduct.id)) { cart.push(currentlyViewingProduct); updateCartUI(); } openCheckout(); } });
     document.getElementById('cartToggle').addEventListener('click', (e) => { e.preventDefault(); closeAllModals(); document.getElementById('sideCart').classList.add('active'); mainOverlay.classList.add('active'); });
 
     function updateCartUI() { document.getElementById('cartBadge').innerText = cart.length; cartItemsContainer.innerHTML = ''; cartTotalValue = 0; if (cart.length === 0) { cartItemsContainer.innerHTML = '<p style="color:#666; text-align:center;">Sepetiniz boş.</p>'; cartTotalPrice.innerText = '0.00 ₺'; return; } cart.forEach(i => { cartTotalValue += i.price; cartItemsContainer.insertAdjacentHTML('beforeend', `<div class="cart-item"><img src="${i.img}"><div><div style="font-weight:500;">${i.title}</div><div style="color:var(--text-secondary);">${i.price.toLocaleString('tr-TR', { minimumFractionDigits: 2 })} ₺</div></div></div>`); }); cartTotalPrice.innerText = cartTotalValue.toLocaleString('tr-TR', { minimumFractionDigits: 2 }) + ' ₺'; }
@@ -228,6 +240,15 @@ if (document.getElementById('homeView')) {
         let o = JSON.parse(localStorage.getItem('gnl_orders')) || []; 
         o.push({ id: "GNL-" + Math.floor(100000 + Math.random() * 900000), date: new Date().toLocaleString('tr-TR'), status: "Sipariş Alındı", customer: { name: document.getElementById('checkoutName').value, email: currentUser.email, phone: document.getElementById('checkoutPhone').value, city: document.getElementById('checkoutCity').value, district: document.getElementById('checkoutDistrict').value, address: document.getElementById('checkoutAddress').value }, items: [...cart], total: cartTotalValue }); 
         localStorage.setItem('gnl_orders', JSON.stringify(o));
+        
+        // YENİ EKLENEN: Sipariş verildiğinde stoğu düşür
+        products = JSON.parse(localStorage.getItem('gnl_products')) || products; 
+        cart.forEach(cartItem => {
+            let pIndex = products.findIndex(p => p.id === cartItem.id);
+            if(pIndex !== -1 && products[pIndex].stock > 0) products[pIndex].stock -= 1; 
+        });
+        localStorage.setItem('gnl_products', JSON.stringify(products));
+
         alert("Sipariş alındı!"); cart = []; updateCartUI(); closeAllModals(); showHome();
     });
 

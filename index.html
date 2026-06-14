@@ -120,16 +120,8 @@
                 <h4>1. Teslimat Adresi</h4>
                 <label class="form-label">Adınız Soyadınız</label>
                 <input type="text" id="checkoutName" class="form-input form-input-mb" placeholder="Adınız Soyadınız" required>
-                
                 <div class="form-row">
-                    <div class="flex-1">
-                        <label class="form-label">İlçe</label>
-                        <input type="text" id="checkoutDistrict" class="form-input form-input-mb" placeholder="İlçe" required>
-                    </div>
-                    <div class="flex-1">
-                        <label class="form-label">İl</label>
-                        <input type="text" id="checkoutCity" class="form-input form-input-mb" placeholder="İl" required>
-                    </div>
+                    <div class="flex-1"><label class="form-label">İlçe</label><input type="text" id="checkoutDistrict" class="form-input form-input-mb" placeholder="İlçe" required></div>
                 </div>
                 <label class="form-label">Açık Adres</label>
                 <input type="text" id="checkoutAddress" class="form-input form-input-mb" placeholder="Açık Adres" required>
@@ -142,33 +134,20 @@
                 <h4>2. Ödeme Bilgileri</h4>
                 <label class="form-label">Kart Üzerindeki İsim</label>
                 <input type="text" class="form-input form-input-mb" placeholder="Kart Üzerindeki İsim" required>
-                
                 <label class="form-label">Kart Numarası</label>
                 <input type="text" id="cardNumberInput" class="form-input form-input-mb" placeholder="16 Haneli Kart Numarası" pattern="\d{16}" minlength="16" maxlength="16" required>
-                
                 <div class="form-row">
-                    <div class="flex-1">
-                        <label class="form-label">Son Kullanma (AA/YY)</label>
-                        <input type="text" id="expDateInput" class="form-input form-input-mb" placeholder="AA/YY" maxlength="5" required>
-                    </div>
-                    <div class="flex-1">
-                        <label class="form-label">CVV</label>
-                        <input type="text" class="form-input form-input-mb" placeholder="CVV" maxlength="3" required>
-                    </div>
+                    <div class="flex-1"><label class="form-label">Son Kullanma (AA/YY)</label><input type="text" id="expDateInput" class="form-input form-input-mb" placeholder="AA/YY" maxlength="5" required></div>
+                    <div class="flex-1"><label class="form-label">CVV</label><input type="text" class="form-input form-input-mb" placeholder="CVV" maxlength="3" required></div>
                 </div>
             </div>
-            <div class="checkout-summary" style="margin-bottom: 1rem;">
-                <p>Ödenecek Tutar: <strong id="checkoutTotal">0.00 ₺</strong></p>
-            </div>
+            <div class="checkout-summary" style="margin-bottom: 1rem;"><p>Ödenecek Tutar: <strong id="checkoutTotal">0.00 ₺</strong></p></div>
             <button type="submit" class="btn btn-full btn-success">SİPARİŞİ TAMAMLA</button>
         </form>
     </div>
 
     <div class="side-cart" id="sideCart">
-        <div class="cart-header">
-            <h2>Alışveriş Sepeti</h2>
-            <button class="close-cart" id="closeCart">&times;</button>
-        </div>
+        <div class="cart-header"><h2>Alışveriş Sepeti</h2><button class="close-cart" id="closeCart">&times;</button></div>
         <div class="cart-items" id="cartItemsContainer"><p style="color:#666; text-align:center;">Sepetiniz şu an boş.</p></div>
         <div class="cart-footer">
             <div class="cart-total"><span>Toplam:</span><span id="cartTotalPrice">0.00 ₺</span></div>
@@ -234,6 +213,9 @@
             <div class="product-detail-info">
                 <h1 id="detailTitle" style="font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 0.5rem;">Ürün Adı</h1>
                 <p id="detailCategoryText" style="color: var(--text-secondary); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 0.5rem;">Kategori</p>
+                
+                <p id="detailStockStatus" style="font-weight: 600; font-size: 0.9rem; margin-bottom: 1rem;"></p>
+                
                 <p class="price" id="detailPrice" style="font-size: 1.8rem; font-weight: 600; margin-bottom: 2rem;">0.00 ₺</p>
                 <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 2.5rem;">Modern tasarımı ve üstün kalitesiyle evinize şıklık katacak harika bir ürün. Uzun ömürlü kullanım için yüksek standartlarda üretilmiştir.</p>
                 
