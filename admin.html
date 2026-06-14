@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GNL | Yönetim Paneli</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,6 +14,7 @@
             <div class="header-buttons">
                 <button class="btn-tab active" id="tabProductsBtn">📦 Ürün Yönetimi</button>
                 <button class="btn-tab" id="tabOrdersBtn">📝 Siparişler</button>
+                <button class="btn-tab" id="tabMessagesBtn">💬 Mesajlar</button>
                 <a href="index.html" class="btn-site" target="_blank">Siteye Git ↗</a>
             </div>
         </div>
@@ -25,7 +26,7 @@
                     <div class="form-row">
                         <div class="form-group flex-2">
                             <label class="form-label">Ürün Adı</label>
-                            <input type="text" id="pTitle" required class="form-input" placeholder="Örn: Seramik Vazo">
+                            <input type="text" id="pTitle" required class="form-input" placeholder="Örn: Organik Temizleyici">
                         </div>
                         <div class="form-group flex-1">
                             <label class="form-label">Fiyat (₺)</label>
@@ -45,15 +46,10 @@
                             <option value="Kişisel Bakım">Kişisel Bakım</option>
                         </select>
                     </div>
-                    
                     <div class="form-group mb-0">
                         <label class="form-label">Medya Linkleri (Birden fazla resim/video varsa virgülle ayırarak girin)</label>
-                        <input type="text" id="pImg" required class="form-input" placeholder="resim1.jpg, resim2.png, video.mp4">
-                    </div>
-                    
-                    <div style="margin-top: 1rem; display: flex; align-items: center; gap: 8px;">
-                        <input type="checkbox" id="pFeatured">
-                        <label for="pFeatured" class="form-label mb-0" style="cursor:pointer;">Ana sayfada "Öne Çıkanlar"da göster</label>
+                        <input type="text" id="pGallery" required class="form-input" placeholder="Örn: resim1.jpg, resim2.png, video.mp4">
+                        <small class="form-help-text">Girdiğiniz ilk link ana görsel olarak kullanılacaktır.</small>
                     </div>
                     <button type="submit" class="btn-dark mt-1-5">Ürünü Sisteme Kaydet</button>
                 </form>
@@ -63,10 +59,11 @@
             <table class="admin-table">
                 <thead>
                     <tr>
-                        <th style="width: 80px;">Kapak Görseli</th>
+                        <th style="width: 80px;">Görsel</th>
                         <th>Ürün Adı</th>
                         <th>Kategori</th>
                         <th>Fiyat</th>
+                        <th style="width: 140px;">Stok Durumu</th>
                         <th style="width: 100px;">İşlem</th>
                     </tr>
                 </thead>
@@ -82,12 +79,57 @@
                         <th>Sipariş No</th>
                         <th>Tarih</th>
                         <th>Müşteri Bilgileri</th>
+                        <th>Teslimat Adresi</th>
                         <th>Alınan Ürünler</th>
                         <th>Toplam</th>
-                        <th>Durum</th>
+                        <th style="width: 160px;">Durum</th>
+                        <th>İşlem</th>
                     </tr>
                 </thead>
                 <tbody id="adminOrderTable"></tbody>
+            </table>
+        </div>
+
+        <div id="messagesSection" class="section">
+            <div class="flex-between mb-1-5">
+                <h3 class="table-title mb-0">Mesajlar (<span id="totalMessageCount">0</span>)</h3>
+                <button class="btn-dark" id="newMessageBtn">✉️ Yeni Mesaj Gönder</button>
+            </div>
+            
+            <div id="adminMessageForm" class="form-section" style="display:none;">
+                <h4 id="adminMessageFormTitle" class="form-title">Yeni Mesaj</h4>
+                <div class="form-row">
+                    <div class="form-group flex-1">
+                        <label class="form-label">Alıcı (E-posta)</label>
+                        <input type="email" id="adminMsgRecipient" class="form-input" placeholder="kullanici@email.com">
+                    </div>
+                    <div class="form-group flex-2">
+                        <label class="form-label">Konu</label>
+                        <input type="text" id="adminMsgSubject" class="form-input" placeholder="Mesaj konusu...">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Mesaj</label>
+                    <textarea id="adminMsgText" rows="4" class="form-input" style="resize:vertical;" placeholder="Mesajınızı yazın..."></textarea>
+                </div>
+                <div class="flex-gap-1">
+                    <button id="adminMsgSendBtn" class="btn-dark">Gönder</button>
+                    <button id="adminMsgCancelBtn" class="btn-tab">İptal</button>
+                </div>
+            </div>
+
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Tarih</th>
+                        <th>Kullanıcı</th>
+                        <th>Konu</th>
+                        <th>Mesaj</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody id="adminMessageTable"></tbody>
             </table>
         </div>
     </div>

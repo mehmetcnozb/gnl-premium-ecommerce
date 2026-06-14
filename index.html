@@ -52,17 +52,22 @@
         <form class="auth-form active" id="formLogin">
             <label class="form-label">E-posta Adresi</label>
             <input type="email" id="loginEmail" class="form-input form-input-mb" placeholder="E-posta Adresiniz" required>
+            
             <label class="form-label">Şifre</label>
             <input type="password" id="loginPassword" class="form-input form-input-mb" placeholder="Şifreniz" required>
+            
             <button type="submit" class="btn btn-full">GİRİŞ YAP</button>
         </form>
         <form class="auth-form" id="formRegister">
             <label class="form-label">Adınız Soyadınız</label>
             <input type="text" id="registerName" class="form-input form-input-mb" placeholder="Adınız Soyadınız" required>
+            
             <label class="form-label">E-posta Adresi</label>
             <input type="email" id="registerEmail" class="form-input form-input-mb" placeholder="E-posta Adresiniz" required>
+            
             <label class="form-label">Şifre Belirleyin</label>
             <input type="password" id="registerPassword" class="form-input form-input-mb" placeholder="Şifre Belirleyin" required>
+            
             <button type="submit" class="btn btn-full">HESAP OLUŞTUR</button>
         </form>
     </div>
@@ -73,18 +78,21 @@
         <div class="profile-tabs">
             <button class="profile-tab active" data-target="infoContent">Kişisel Bilgiler</button>
             <button class="profile-tab" data-target="addressContent">Adreslerim</button>
-            <button class="profile-tab" data-target="ordersContent" style="opacity: 0.5;">Siparişlerim</button>
-            <button class="profile-tab" data-target="messagesContent" style="opacity: 0.5;">Mesajlarım</button>
+            <button class="profile-tab" data-target="ordersContent">Siparişlerim</button>
+            <button class="profile-tab" data-target="messagesContent">Mesajlarım</button>
         </div>
         
         <div class="profile-content active" id="infoContent">
             <form>
                 <label class="form-label">Ad Soyad</label>
-                <input type="text" id="profileNameInput" class="form-input form-input-mb" value="">
+                <input type="text" id="profileNameInput" class="form-input form-input-mb" value="Kullanıcı">
+                
                 <label class="form-label">E-posta Adresi</label>
-                <input type="email" id="profileEmailInput" class="form-input form-input-mb" value="" disabled>
+                <input type="email" id="profileEmailInput" class="form-input form-input-mb" value="user@gnl.com" disabled>
+                
                 <label class="form-label">Telefon Numarası</label>
                 <input type="tel" id="profilePhoneInput" class="form-input form-input-mb" placeholder="05XX XXX XX XX" maxlength="11">
+                
                 <button type="button" id="saveInfoBtn" class="btn btn-full">BİLGİLERİ KAYDET</button>
             </form>
         </div>
@@ -103,11 +111,17 @@
                 </div>
                 <label class="form-label">Açık Adres</label>
                 <textarea id="profileAddressInput" rows="3" class="form-textarea" placeholder="Mahalle, Sokak, Bina No, Kapı No..."></textarea>
+                
                 <button type="button" id="saveAddressBtn" class="btn btn-full">ADRESİ KAYDET</button>
             </form>
         </div>
-        <div class="profile-content" id="ordersContent"><p style="text-align:center; color:#666; margin-top:1rem;">Bu özellik yakında aktif olacaktır.</p></div>
-        <div class="profile-content" id="messagesContent"><p style="text-align:center; color:#666; margin-top:1rem;">Bu özellik yakında aktif olacaktır.</p></div>
+        
+        <div class="profile-content" id="ordersContent">
+            <div id="userOrdersList" style="max-height: 360px; overflow-y: auto;"></div>
+        </div>
+        <div class="profile-content" id="messagesContent">
+            <div id="userMessagesList" style="max-height: 300px; overflow-y: auto;"></div>
+        </div>
         
         <button class="btn btn-full btn-danger" id="logoutBtn" style="margin-top: 1rem;">ÇIKIŞ YAP</button>
     </div>
@@ -120,8 +134,16 @@
                 <h4>1. Teslimat Adresi</h4>
                 <label class="form-label">Adınız Soyadınız</label>
                 <input type="text" id="checkoutName" class="form-input form-input-mb" placeholder="Adınız Soyadınız" required>
+                
                 <div class="form-row">
-                    <div class="flex-1"><label class="form-label">İlçe</label><input type="text" id="checkoutDistrict" class="form-input form-input-mb" placeholder="İlçe" required></div>
+                    <div class="flex-1">
+                        <label class="form-label">İlçe</label>
+                        <input type="text" id="checkoutDistrict" class="form-input form-input-mb" placeholder="İlçe" required>
+                    </div>
+                    <div class="flex-1">
+                        <label class="form-label">İl</label>
+                        <input type="text" id="checkoutCity" class="form-input form-input-mb" placeholder="İl" required>
+                    </div>
                 </div>
                 <label class="form-label">Açık Adres</label>
                 <input type="text" id="checkoutAddress" class="form-input form-input-mb" placeholder="Açık Adres" required>
@@ -134,20 +156,72 @@
                 <h4>2. Ödeme Bilgileri</h4>
                 <label class="form-label">Kart Üzerindeki İsim</label>
                 <input type="text" class="form-input form-input-mb" placeholder="Kart Üzerindeki İsim" required>
+                
                 <label class="form-label">Kart Numarası</label>
                 <input type="text" id="cardNumberInput" class="form-input form-input-mb" placeholder="16 Haneli Kart Numarası" pattern="\d{16}" minlength="16" maxlength="16" required>
+                
                 <div class="form-row">
-                    <div class="flex-1"><label class="form-label">Son Kullanma (AA/YY)</label><input type="text" id="expDateInput" class="form-input form-input-mb" placeholder="AA/YY" maxlength="5" required></div>
-                    <div class="flex-1"><label class="form-label">CVV</label><input type="text" class="form-input form-input-mb" placeholder="CVV" maxlength="3" required></div>
+                    <div class="flex-1">
+                        <label class="form-label">Son Kullanma (AA/YY)</label>
+                        <input type="text" id="expDateInput" class="form-input form-input-mb" placeholder="AA/YY" maxlength="5" required>
+                    </div>
+                    <div class="flex-1">
+                        <label class="form-label">CVV</label>
+                        <input type="text" class="form-input form-input-mb" placeholder="CVV" maxlength="3" required>
+                    </div>
                 </div>
             </div>
-            <div class="checkout-summary" style="margin-bottom: 1rem;"><p>Ödenecek Tutar: <strong id="checkoutTotal">0.00 ₺</strong></p></div>
+            <div class="checkout-summary" style="margin-bottom: 1rem;">
+                <p>Ödenecek Tutar: <strong id="checkoutTotal">0.00 ₺</strong></p>
+            </div>
             <button type="submit" class="btn btn-full btn-success">SİPARİŞİ TAMAMLA</button>
         </form>
     </div>
 
+    <div class="modal text-modal" id="contactModal">
+        <button class="close-modal">&times;</button>
+        <h2>İletişim</h2>
+        <p>Bize aşağıdaki yollardan ulaşabilirsiniz:</p>
+        <ul><li><strong>E-posta:</strong> destek@gnl.com</li><li><strong>Telefon:</strong> 0850 123 45 67</li></ul>
+        <hr style="margin: 1.5rem 0; border: 0; border-top: 1px solid var(--border-color);">
+        <h3 style="font-family: var(--font-heading); margin-bottom: 1rem;">Bize Mesaj Gönderin</h3>
+        <form id="contactForm">
+            <label class="form-label">Konu</label>
+            <input type="text" id="contactSubject" class="form-input form-input-mb" placeholder="Konu" required>
+            <label class="form-label">Mesajınız</label>
+            <textarea id="contactMessage" rows="4" class="form-textarea" placeholder="Mesajınız..." required></textarea>
+            <button type="submit" class="btn btn-full">MESAJI GÖNDER</button>
+        </form>
+    </div>
+    <div class="modal text-modal" id="shippingModal"><button class="close-modal">&times;</button><h2>Kargo ve Teslimat</h2><p>Siparişleriniz, onaylandıktan sonra 1-3 iş günü içerisinde kargoya teslim edilmektedir.</p></div>
+    <div class="modal text-modal" id="returnsModal"><button class="close-modal">&times;</button><h2>İade Koşulları</h2><p>Satın aldığınız ürünü 14 gün içerisinde iade edebilirsiniz.</p></div>
+
+    <div class="modal text-modal" id="productQuestionModal">
+        <button class="close-modal">&times;</button>
+        <h2 style="font-family: var(--font-heading); margin-bottom: 0.5rem;">Satıcıya Soru Sor</h2>
+        <p id="productQuestionProductName" style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);"></p>
+        <form id="productQuestionForm">
+            <label class="form-label">Sorunuz</label>
+            <textarea id="productQuestionText" rows="5" class="form-textarea" placeholder="Ürün hakkında merak ettiğiniz her şeyi sorabilirsiniz..." required></textarea>
+            <button type="submit" class="btn btn-full">💬 SORUYU GÖNDER</button>
+        </form>
+    </div>
+    <div class="modal text-modal" id="orderQuestionModal">
+        <button class="close-modal">&times;</button>
+        <h2 style="font-family: var(--font-heading); margin-bottom: 0.5rem;">Sipariş Hakkında Soru Sor</h2>
+        <p id="orderQuestionOrderInfo" style="color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);"></p>
+        <form id="orderQuestionForm">
+            <label class="form-label">Sorunuz</label>
+            <textarea id="orderQuestionText" rows="5" class="form-textarea" placeholder="Siparişinizle ilgili merak ettiğiniz her şeyi sorabilirsiniz..." required></textarea>
+            <button type="submit" class="btn btn-full">SORUYU GÖNDER</button>
+        </form>
+    </div>
+
     <div class="side-cart" id="sideCart">
-        <div class="cart-header"><h2>Alışveriş Sepeti</h2><button class="close-cart" id="closeCart">&times;</button></div>
+        <div class="cart-header">
+            <h2>Alışveriş Sepeti</h2>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
         <div class="cart-items" id="cartItemsContainer"><p style="color:#666; text-align:center;">Sepetiniz şu an boş.</p></div>
         <div class="cart-footer">
             <div class="cart-total"><span>Toplam:</span><span id="cartTotalPrice">0.00 ₺</span></div>
@@ -165,9 +239,7 @@
         </section>
         <section class="container featured-section">
             <div class="section-title"><h2>Öne Çıkanlar</h2><p>Bu haftanın en çok tercih edilen GNL ürünleri.</p></div>
-            <div class="carousel-wrapper">
-                <div class="product-carousel" id="featuredGrid"></div>
-            </div>
+            <div class="carousel-wrapper"><div class="product-carousel" id="featuredGrid"></div></div>
             <div class="carousel-controls"><div class="carousel-dots" id="carouselDots"></div></div>
         </section>
     </div>
@@ -182,6 +254,13 @@
                             <h4>Maks. Fiyat: <span id="priceValue">5000</span> ₺</h4>
                             <input type="range" id="priceSlider" class="price-slider" min="0" max="5000" value="5000" step="50">
                         </div>
+                        <div class="filter-group">
+                            <h4>Materyal</h4>
+                            <label class="custom-checkbox"><input type="checkbox" value="Seramik" class="material-filter"> <span class="checkmark"></span> Seramik</label>
+                            <label class="custom-checkbox"><input type="checkbox" value="Cam" class="material-filter"> <span class="checkmark"></span> Cam</label>
+                            <label class="custom-checkbox"><input type="checkbox" value="Porselen" class="material-filter"> <span class="checkmark"></span> Porselen</label>
+                            <label class="custom-checkbox"><input type="checkbox" value="Ahşap" class="material-filter"> <span class="checkmark"></span> Ahşap</label>
+                        </div>
                         <button class="btn btn-full" id="applyFiltersBtn">UYGULA</button>
                     </div>
                 </div>
@@ -189,6 +268,7 @@
                     <button class="toolbar-btn" id="sortToggleBtn"><span id="currentSortText">Öne Çıkanlar</span> <span class="toggle-icon">▼</span></button>
                     <div class="custom-dropdown-content" id="sortContent" style="padding: 0.5rem 0; width: 220px;">
                         <button class="sort-option active" data-sort="featured">Öne Çıkanlar</button>
+                        <button class="sort-option" data-sort="bestSeller">En Çok Satanlar</button>
                         <button class="sort-option" data-sort="priceLow">En Düşük Fiyat</button>
                         <button class="sort-option" data-sort="priceHigh">En Yüksek Fiyat</button>
                     </div>
@@ -208,20 +288,29 @@
         </div>
         <div class="product-detail-layout">
             <div class="product-detail-image">
-                <div class="main-media-container"><img id="detailImg" src="" alt="Ürün Resmi"></div>
+                <div class="main-media-container"><img id="detailImg" src="" alt="Ürün Resmi"><video id="detailVideo" src="" controls style="display: none;"></video></div>
+                <div class="thumbnail-gallery" id="thumbnailGallery"></div>
             </div>
             <div class="product-detail-info">
                 <h1 id="detailTitle" style="font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 0.5rem;">Ürün Adı</h1>
                 <p id="detailCategoryText" style="color: var(--text-secondary); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 0.5rem;">Kategori</p>
-                
-                <p id="detailStockStatus" style="font-weight: 600; font-size: 0.9rem; margin-bottom: 1rem;"></p>
-                
+                <p id="detailStockStatus" style="font-weight: 600; font-size: 0.9rem; margin-bottom: 1rem; color: #2ecc71;">Stokta</p>
                 <p class="price" id="detailPrice" style="font-size: 1.8rem; font-weight: 600; margin-bottom: 2rem;">0.00 ₺</p>
                 <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 2.5rem;">Modern tasarımı ve üstün kalitesiyle evinize şıklık katacak harika bir ürün. Uzun ömürlü kullanım için yüksek standartlarda üretilmiştir.</p>
                 
                 <div class="form-row" style="margin-bottom: 1rem;">
                     <button class="btn btn-full" id="buyNowBtn" style="flex: 1; font-weight: 600;">HEMEN AL</button>
                     <button class="btn btn-full" id="addToCartDetailBtn" style="flex: 1; background: #fff; color: var(--text-primary); border: 2px solid var(--text-primary); font-weight: 600;">SEPETE EKLE</button>
+                </div>
+                <button class="btn btn-full" id="askProductQuestionBtn" style="margin-bottom: 3rem; background: #f8fafc; color: var(--text-primary); border: 1px solid var(--border-color); font-weight: 500; text-transform: none;">💬 Bu Ürün Hakkında Satıcıya Soru Sor</button>
+
+                <div class="detail-features">
+                    <h4 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; font-weight: 500;">Ürün Özellikleri</h4>
+                    <ul style="color: var(--text-secondary); padding-left: 1.5rem; line-height: 2;">
+                        <li><strong>Materyal:</strong> <span id="detailMaterial">Belirtilmemiş</span></li>
+                        <li>Özenle seçilmiş, çevre dostu malzemeler.</li>
+                        <li>Kolay temizlenebilir ve dayanıklı yapı.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -246,9 +335,9 @@
             </div>
             <div class="footer-col">
                 <h4>Destek</h4>
-                <a href="#">İletişim</a>
-                <a href="#">Kargo ve Teslimat</a>
-                <a href="#">İade Koşulları</a>
+                <a href="#" id="footerContactBtn">İletişim</a>
+                <a href="#" id="footerShippingBtn">Kargo ve Teslimat</a>
+                <a href="#" id="footerReturnsBtn">İade Koşulları</a>
             </div>
             <div class="footer-col">
                 <h4>Bültene Kayıt Ol</h4>
