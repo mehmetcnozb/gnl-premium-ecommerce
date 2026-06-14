@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GNL | Yönetim Paneli</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="admin-container">
+        <div class="header-panel">
+            <h1 class="admin-title">GNL Yönetim Paneli</h1>
+            <div class="header-buttons">
+                <button class="btn-tab active" id="tabProductsBtn">📦 Ürün Yönetimi</button>
+                <button class="btn-tab" id="tabOrdersBtn">📝 Siparişler</button>
+                <a href="index.html" class="btn-site" target="_blank">Siteye Git ↗</a>
+            </div>
+        </div>
+
+        <div id="productsSection" class="section active">
+            <div class="form-section">
+                <h3 class="form-title">Yeni Ürün Ekle</h3>
+                <form id="addProductForm">
+                    <div class="form-row">
+                        <div class="form-group flex-2">
+                            <label class="form-label">Ürün Adı</label>
+                            <input type="text" id="pTitle" required class="form-input" placeholder="Örn: Seramik Vazo">
+                        </div>
+                        <div class="form-group flex-1">
+                            <label class="form-label">Fiyat (₺)</label>
+                            <input type="number" id="pPrice" step="0.01" required class="form-input" placeholder="0.00">
+                        </div>
+                        <div class="form-group flex-1">
+                            <label class="form-label">Stok Adedi</label>
+                            <input type="number" id="pStock" required min="0" class="form-input" placeholder="Örn: 10">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Kategori</label>
+                        <select id="pCategory" class="form-input">
+                            <option value="Mutfak">Mutfak</option>
+                            <option value="Ev Yaşam">Ev Yaşam</option>
+                            <option value="Temizlik">Temizlik</option>
+                            <option value="Kişisel Bakım">Kişisel Bakım</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-0">
+                        <label class="form-label">Görsel Linki</label>
+                        <input type="text" id="pImg" required class="form-input" placeholder="https://... veya resim.jpg">
+                    </div>
+                    <div style="margin-top: 1rem; display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" id="pFeatured">
+                        <label for="pFeatured" class="form-label mb-0" style="cursor:pointer;">Ana sayfada "Öne Çıkanlar"da göster</label>
+                    </div>
+                    <button type="submit" class="btn-dark mt-1-5">Ürünü Sisteme Kaydet</button>
+                </form>
+            </div>
+
+            <h3 class="table-title">Mevcut Ürünler (<span id="totalProductCount">0</span>)</h3>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;">Görsel</th>
+                        <th>Ürün Adı</th>
+                        <th>Kategori</th>
+                        <th>Fiyat</th>
+                        <th style="width: 100px;">İşlem</th>
+                    </tr>
+                </thead>
+                <tbody id="adminProductTable"></tbody>
+            </table>
+        </div>
+
+        <div id="ordersSection" class="section">
+            <h3 class="table-title">Alınan Siparişler (<span id="totalOrderCount">0</span>)</h3>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Sipariş No</th>
+                        <th>Tarih</th>
+                        <th>Müşteri Bilgileri</th>
+                        <th>Alınan Ürünler</th>
+                        <th>Toplam</th>
+                        <th>Durum</th>
+                    </tr>
+                </thead>
+                <tbody id="adminOrderTable"></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
